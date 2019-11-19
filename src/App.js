@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { disconnect } from 'cluster';
 
 function App() {
   return (
@@ -19,6 +20,15 @@ function App() {
           Learn React
         </a>
       </header>
+    </div>
+  );
+}
+
+function x() {
+  let username = "Godspeed";
+  return (
+    <div>
+        <p>Hello, it's {{username}}</p>
     </div>
   );
 }
