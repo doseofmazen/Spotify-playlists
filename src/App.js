@@ -44,7 +44,7 @@ function App() {
   //let username = 'Godpspeed'
   return (
     <div className = "App">
-      <h1 style = {{"font-size": "55px"}}>Title</h1>
+      <h1 style = {{"font-size": "55px"}}>Insert title</h1>
       {Aggregate()}
       {Aggregate()}
       {Filter()}
@@ -57,41 +57,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//#region -- old code
-/*
-< header className = "App-header" >
-  <
-  img src = {
-    logo
-  }
-className = "App-logo"
-alt = "logo" / >
-  <
-  p >
-  Edit < code > src / App.js < /code> and save. <
-  /p> <
-  a
-className = "App-link"
-href = "https://reactjs.org"
-target = "_blank"
-rel = "noopener noreferrer" >
-  Learn React <
-  /a> <
-  /header>
-  */
-  //#endregion
