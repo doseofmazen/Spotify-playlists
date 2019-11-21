@@ -4,13 +4,13 @@ import './App.css';
 
 function App() {
   let username = 'Godpspeed'
-  let headerStyle = {
-    color: '312628',
-    font-size: '30px'
-  }
+  // let headerStyle = {
+  //   'color': '312628',
+  //   'font-size:' '30px'
+  // }
   return (
     <div className="App">
-
+      <h1>{username}</h1>
     </div>
   );
 }
