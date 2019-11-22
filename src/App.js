@@ -7,35 +7,35 @@ let fakeData = {
     name: 'Godspeed',
     playlists: [
       {
-        name: 'My favorites',
+        name: 'CHH 🔥',
         songs: [
-          {name: 'Beat It', duration: 1345},
-          {name: 'Cannelloni Makaroni', duration: 1236},
-          {name: 'Rosa helikopter', duration: 70000}
+          {name: 'Watch this', duration: 1345},
+          {name: 'Superstar (Feat. Landstrip Chip)', duration: 1236},
+          {name: 'Angels', duration: 70000}
         ]
       },
       {
-        name: 'Discover Weekly',
+        name: 'Workout',
         songs: [
-          {name: 'Beat It', duration: 1345},
-          {name: 'Cannelloni Makaroni', duration: 1236},
-          {name: 'Rosa helikopter', duration: 70000}
+          {name: 'Coming In Hot', duration: 1345},
+          {name: "Energy (Feat. Torey D'Shaun", duration: 1236},
+          {name: 'PANORAMA', duration: 70000}
         ]
       },
       {
-        name: 'Another playlist - the best!',
+        name: 'Worship',
         songs: [
-          {name: 'Beat It', duration: 1345},
-          {name: 'Cannelloni Makaroni', duration: 1236},
-          {name: 'Rosa helikopter', duration: 70000}
+          {name: 'So Will I (100 Billion X)', duration: 1345},
+          {name: 'Here Now (Madness)', duration: 1236},
+          {name: 'Glory & Wonder', duration: 70000}
         ]
       },
       {
-        name: 'Playlist - yeah!',
+        name: 'Car',
         songs: [
-          {name: 'Beat It', duration: 1345},
-          {name: 'Cannelloni Makaroni', duration: 1236},
-          {name: 'Rosa helikopter', duration: 70000}
+          {name: 'Thass God', duration: 1345},
+          {name: 'No Time', duration: 1236},
+          {name: 'Olympus', duration: 70000}
         ]
       }
     ]
@@ -58,7 +58,7 @@ class HoursCounter extends React.Component {
   render() {
     let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
       return songs.concat(eachPlaylist.songs)
-    }, [])
+    }, []);
     let totalDuration = allSongs.reduce((sum, eachSong) => {
       return sum + eachSong.duration
     }, 0)
@@ -93,12 +93,11 @@ class Playlist extends React.Component {
         }}>
 
         <img  alt=""/>
-        <h3>Playlist Name</h3>
+        <h3>{this.props.playlist.name}</h3>
         <ul style = {{"listStyle": "none"}}>
           <li>Song 1</li>
           <li>Song 2</li>
           <li>Song 3</li>
-          <li>Song 4</li>
         </ul>
     </div>
     );
@@ -122,19 +121,16 @@ class App extends React.Component {
         {this.state.serverData.user ?
         <div>
           <h1 style = {{"font-size": "55px"}}>
-              {
-                this.state.serverData.user.name
-              }'s playlist
-            </h1>
-
-            {/* Calling funtions */}
-            <PlaylistCounter playlists={this.state.serverData.user.playlists}/>
-            <HoursCounter playlists={this.state.serverData.user.playlists}/>
-            <Filter/>
-            <Playlist/>
-            <Playlist/>
-            <Playlist/>
-            <Playlist/>
+            {this.state.serverData.user.name}'s playlist
+          </h1>
+          {/* Calling funtions */}
+          <PlaylistCounter playlists = {this.state.serverData.user.playlists}/>
+          <HoursCounter playlists = {this.state.serverData.user.playlists}/>
+          <Filter/>
+          {
+            this.state.serverData.user.playlists.map(playlists =>
+              <Playlist playlist={playlists}/>
+          )}
         </div> : <h1>Loding...</h1>
         }
       </div>
