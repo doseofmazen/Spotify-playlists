@@ -94,7 +94,7 @@ class Playlist extends React.Component {
 
         <img  alt=""/>
         <h3>{this.props.playlist.name}</h3>
-        <ul style = {{"listStyle": "none"}}>
+        <ul style = {{listStyle: "none", padding: "0px"}}>
           <li>Song 1</li>
           <li>Song 2</li>
           <li>Song 3</li>
