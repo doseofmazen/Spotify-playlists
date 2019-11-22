@@ -1,104 +1,144 @@
 import React from 'react';
-//import logo from './logo.svg';
 import './App.css';
 
 //fake data that will replaced by server data
 let fakeData = {
-  user:
-  {
-    name: '🔥Godspeed',
-    playlist: [{
-      name: 'CHH🔥',
-      song: ['Watch this', 'Co$st', 'Bag', 'Thass God']
-    }, {
-      name: 'Car',
-      song: ['PANORAMA', 'Bros', 'Swish', 'One Day(Feat. Beleaf)']
-    }, {
-      name: 'Workout',
-      song: ['Wow', 'Going Bad(Feat. Drake)', 'Project Dreams', 'Coming In Hot']
-    }, {
-      name: 'Home',
-      song: ['Lala', 'Nana', 'Mama', 'Jojo']
-    }]
+  user: {
+    name: 'Godspeed',
+    playlists: [
+      {
+        name: 'My favorites',
+        songs: [
+          {name: 'Beat It', duration: 1345},
+          {name: 'Cannelloni Makaroni', duration: 1236},
+          {name: 'Rosa helikopter', duration: 70000}
+        ]
+      },
+      {
+        name: 'Discover Weekly',
+        songs: [
+          {name: 'Beat It', duration: 1345},
+          {name: 'Cannelloni Makaroni', duration: 1236},
+          {name: 'Rosa helikopter', duration: 70000}
+        ]
+      },
+      {
+        name: 'Another playlist - the best!',
+        songs: [
+          {name: 'Beat It', duration: 1345},
+          {name: 'Cannelloni Makaroni', duration: 1236},
+          {name: 'Rosa helikopter', duration: 70000}
+        ]
+      },
+      {
+        name: 'Playlist - yeah!',
+        songs: [
+          {name: 'Beat It', duration: 1345},
+          {name: 'Cannelloni Makaroni', duration: 1236},
+          {name: 'Rosa helikopter', duration: 70000}
+        ]
+      }
+    ]
   }
 };
 
 //Playlist aggregate
-function Aggregate() {
-  return (
-    <div style = {{width: "40%", display: "inline-block"}}>
-      <h2>Number Text</h2>
-    </div>
-  );
+class PlaylistCounter extends React.Component {
+  render() {
+    return (
+      <div style={{width: "40%", display: 'inline-block'}}>
+        <h2>{this.props.playlists.length} playlists</h2>
+      </div>
+    );
+  }
+}
+
+//how long the playlist is
+class HoursCounter extends React.Component {
+  render() {
+    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
+      return songs.concat(eachPlaylist.songs)
+    }, [])
+    let totalDuration = allSongs.reduce((sum, eachSong) => {
+      return sum + eachSong.duration
+    }, 0)
+    return (
+      <div style={{width: "40%", display: 'inline-block'}}>
+        <h2>{Math.round(totalDuration/60)} hours</h2>
+      </div>
+    );
+  }
 }
 
 //search box to be used for filtering songs
-function Filter() {
-  return (
-    <div>
-      <img alt = ""/>
-      <input type="text" placeholder="type some text"/>
-    </div>
-  );
+class Filter extends React.Component {
+  render() {
+    return (
+      <div>
+        <img alt = ""/>
+        <input type="text" placeholder="type some text"/>
+      </div>
+    );
+  }
 }
 
 //the actual playlist
-function Playlist() {
-  return (
-    <div style = {
-      {
-        width: "25%",
-        display: "inline-block",
-        fontSize: "20px"
-      }
-    }>
-      <img  alt=""/>
-      <h3>Playlist Name</h3>
-      <ul style = {{"listStyle": "none"}}>
-        <li>Song 1</li>
-        <li>Song 2</li>
-        <li>Song 3</li>
-        <li>Song 4</li>
-      </ul>
+class Playlist extends React.Component {
+  render() {
+    return (
+      <div style = {{
+         width: "25%",
+         display: "inline-block",
+         fontSize: "20px"
+        }}>
+
+        <img  alt=""/>
+        <h3>Playlist Name</h3>
+        <ul style = {{"listStyle": "none"}}>
+          <li>Song 1</li>
+          <li>Song 2</li>
+          <li>Song 3</li>
+          <li>Song 4</li>
+        </ul>
     </div>
-  );
+    );
+  }
 }
+
 //main function so inti the app
 class App extends React.Component {
   constructor() {
     super();
     this.state = {serverData: {}}
   }
-
   componentDidMount() {
-    this.setState({serverData: fakeData})
+    setTimeout(() => {
+      this.setState({serverData: fakeData});
+    }, 1000);
   }
-
   render() {
     return (
-       <div className = "App">
-        <h1 style = {{"font-size": "55px"}}>
-          {
-            this.state.serverData.user &&
-            this.state.serverData.user.name
-          }'s playlist
-        </h1>
+      <div className="App">
+        {this.state.serverData.user ?
+        <div>
+          <h1 style = {{"font-size": "55px"}}>
+              {
+                this.state.serverData.user.name
+              }'s playlist
+            </h1>
 
-
-
-
-
-        {/* Calling funtions */}
-        {Aggregate()}
-        {Aggregate()}
-        {Filter()}
-        {Playlist()}
-        {Playlist()}
-        {Playlist()}
-        {Playlist()}
-    </div>
+            {/* Calling funtions */}
+            <PlaylistCounter playlists={this.state.serverData.user.playlists}/>
+            <HoursCounter playlists={this.state.serverData.user.playlists}/>
+            <Filter/>
+            <Playlist/>
+            <Playlist/>
+            <Playlist/>
+            <Playlist/>
+        </div> : <h1>Loding...</h1>
+        }
+      </div>
     );
   }
 }
-
 export default App;
