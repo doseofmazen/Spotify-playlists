@@ -1,11 +1,11 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
 
 //fake data that will replaced by server data
 let fakeData = {
   user: {
     name: 'Godspeed',
-    playlists: [
+    playlist: [
       {
         name: 'CHH 🔥',
         songs: [
@@ -18,7 +18,7 @@ let fakeData = {
         name: 'Workout',
         songs: [
           {name: 'Coming In Hot', duration: 1345},
-          {name: "Energy (Feat. Torey D'Shaun", duration: 1236},
+          {name: "Energy (Feat. Torey D'Shaun)", duration: 1236},
           {name: 'PANORAMA', duration: 70000}
         ]
       },
@@ -40,25 +40,25 @@ let fakeData = {
       }
     ]
   }
-};
+}
 
 //Playlist aggregate
 class PlaylistCounter extends React.Component {
   render() {
     return (
       <div style={{width: "40%", display: 'inline-block'}}>
-        <h2>{this.props.playlists.length} playlists</h2>
+        <h2>{this.props.playlist.length} playlists</h2>
       </div>
-    );
+    )
   }
 }
 
 //how long the playlist is
 class HoursCounter extends React.Component {
   render() {
-    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
+    let allSongs = this.props.playlist.reduce((songs, eachPlaylist) => {
       return songs.concat(eachPlaylist.songs)
-    }, []);
+    }, [])
     let totalDuration = allSongs.reduce((sum, eachSong) => {
       return sum + eachSong.duration
     }, 0)
@@ -66,7 +66,7 @@ class HoursCounter extends React.Component {
       <div style={{width: "40%", display: 'inline-block'}}>
         <h2>{Math.round(totalDuration/60)} hours</h2>
       </div>
-    );
+    )
   }
 }
 
@@ -78,13 +78,14 @@ class Filter extends React.Component {
         <img alt = ""/>
         <input type="text" placeholder="type some text"/>
       </div>
-    );
+    )
   }
 }
 
 //the actual playlist
 class Playlist extends React.Component {
   render() {
+    let playlist = this.props.playlist
     return (
       <div style = {{
          width: "25%",
@@ -93,27 +94,27 @@ class Playlist extends React.Component {
         }}>
 
         <img  alt=""/>
-        <h3>{this.props.playlist.name}</h3>
-        <ul style = {{listStyle: "none", padding: "0px"}}>
-          <li>Song 1</li>
-          <li>Song 2</li>
-          <li>Song 3</li>
+        <h3>{playlist.name}</h3>
+        <ul style = {{listStyle: "none", padding: "0px", fontSize: ""}}>
+          {playlist.songs.map(song =>
+            <li>{song.name}</li>
+          )}
         </ul>
     </div>
-    );
+    )
   }
 }
 
 //main function so inti the app
 class App extends React.Component {
   constructor() {
-    super();
+    super()
     this.state = {serverData: {}}
   }
   componentDidMount() {
     setTimeout(() => {
-      this.setState({serverData: fakeData});
-    }, 1000);
+      this.setState({serverData: fakeData})
+    }, 1000)
   }
   render() {
     return (
@@ -124,17 +125,17 @@ class App extends React.Component {
             {this.state.serverData.user.name}'s playlist
           </h1>
           {/* Calling funtions */}
-          <PlaylistCounter playlists = {this.state.serverData.user.playlists}/>
-          <HoursCounter playlists = {this.state.serverData.user.playlists}/>
+          <PlaylistCounter playlist = {this.state.serverData.user.playlist}/>
+          <HoursCounter playlist = {this.state.serverData.user.playlist}/>
           <Filter/>
           {
-            this.state.serverData.user.playlists.map(playlists =>
-              <Playlist playlist={playlists}/>
+            this.state.serverData.user.playlist.map(playlist =>
+              <Playlist playlist={playlist}/>
           )}
         </div> : <h1>Loding...</h1>
         }
       </div>
-    );
+    )
   }
 }
-export default App;
+export default App
