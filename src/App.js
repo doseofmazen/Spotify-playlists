@@ -5,7 +5,7 @@ import './App.css'
 let fakeData = {
   user: {
     name: 'Godspeed',
-    playlist: [
+    playlists: [
       {
         name: 'CHH 🔥',
         songs: [
@@ -47,16 +47,16 @@ class PlaylistCounter extends React.Component {
   render() {
     return (
       <div style={{width: "40%", display: 'inline-block'}}>
-        <h2>{this.props.playlist.length} playlists</h2>
+        <h2>{this.props.playlists.length} playlists</h2>
       </div>
     )
   }
 }
 
-//how long the playlist is
+//how long the  is
 class HoursCounter extends React.Component {
   render() {
-    let allSongs = this.props.playlist.reduce((songs, eachPlaylist) => {
+    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
       return songs.concat(eachPlaylist.songs)
     }, [])
     let totalDuration = allSongs.reduce((sum, eachSong) => {
@@ -76,16 +76,18 @@ class Filter extends React.Component {
     return (
       <div>
         <img alt = ""/>
-        <input type="text" placeholder="type some text"/>
+        <input type="text" placeholder="typing..?" onKeyUp = {
+          event => this.props.onTextChange(event.target.value)
+        }/>
       </div>
     )
   }
 }
 
-//the actual playlist
+//the actual p
 class Playlist extends React.Component {
   render() {
-    let playlist = this.props.playlist
+    let playlist = this.props.playlists //?
     return (
       <div style = {{
          width: "25%",
@@ -97,7 +99,7 @@ class Playlist extends React.Component {
         <h3>{playlist.name}</h3>
         <ul style = {{listStyle: "none", padding: "0px", fontSize: ""}}>
           {playlist.songs.map(song =>
-            <li>{song.name}</li>
+            <li>{this.props.song.name}</li>
           )}
         </ul>
     </div>
@@ -107,31 +109,38 @@ class Playlist extends React.Component {
 
 //main function so inti the app
 class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {serverData: {}}
+  constructor(props) {
+    super(props)
+    this.state = {
+      serverData: {},
+      filterString: '',
+    }
   }
+
   componentDidMount() {
     setTimeout(() => {
       this.setState({serverData: fakeData})
     }, 1000)
   }
+
   render() {
+    let playlistToRender = this.state.serverData.user ?
+                           this.state.serverData.user.playlists.filter(playlist =>
+                           playlist.name.includes(
+                           this.setState.filterString)
+                           ) : []
     return (
       <div className="App">
         {this.state.serverData.user ?
         <div>
-          <h1 style = {{"font-size": "55px"}}>
-            {this.state.serverData.user.name}'s playlist
+          <h1 style = {{fontSize: "55px"}}>
+            {this.state.serverData.user.name}'s playlists
           </h1>
           {/* Calling funtions */}
-          <PlaylistCounter playlist = {this.state.serverData.user.playlist}/>
-          <HoursCounter playlist = {this.state.serverData.user.playlist}/>
-          <Filter/>
-          {
-            this.state.serverData.user.playlist.map(playlist =>
-              <Playlist playlist={playlist}/>
-          )}
+          <PlaylistCounter playlists = {playlistToRender}/>
+          <HoursCounter playlists = {playlistToRender}/>
+          <Filter onTextChanged = {text => this.setState({filterString: text})}/>
+          {playlistToRender.map(playlist => <Playlist playlist={playlist}/>)}
         </div> : <h1>Loding...</h1>
         }
       </div>
