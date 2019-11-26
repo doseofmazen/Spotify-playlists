@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css'
+import querystring from 'query-string';
 
 //fake data that will replaced by server data
 let fakeData = {
@@ -14,30 +15,6 @@ let fakeData = {
           {name: 'Angels', duration: 70000}
         ]
       },
-      {
-        name: 'Workout',
-        songs: [
-          {name: 'Coming In Hot', duration: 1345},
-          {name: "Energy (Feat. Torey D'Shaun)", duration: 1236},
-          {name: 'PANORAMA', duration: 70000}
-        ]
-      },
-      {
-        name: 'Worship',
-        songs: [
-          {name: 'So Will I (100 Billion X)', duration: 1345},
-          {name: 'Here Now (Madness)', duration: 1236},
-          {name: 'Glory & Wonder', duration: 70000}
-        ]
-      },
-      {
-        name: 'Car',
-        songs: [
-          {name: 'Thass God', duration: 1345},
-          {name: 'No Time', duration: 1236},
-          {name: 'Olympus', duration: 70000}
-        ]
-      }
     ]
   }
 }
@@ -87,7 +64,7 @@ class Filter extends React.Component {
 //the actual p
 class Playlist extends React.Component {
   render() {
-    let playlist = this.props.playlists //?
+    let playlist = this.props.playlists
     return (
       <div style = {{
          width: "25%",
@@ -118,9 +95,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({serverData: fakeData})
-    }, 1000)
+    let parsed = querystring.parse(window.location.search);
+    let accessToken = parsed.access_Token
+
+   fetch('https://api.spotify.com/v1/me', {
+     headers: {
+       'Authorization': 'Bearer ' + accessToken
+     }
+   }).then(response => response.json()).then(data => console.log(data))
   }
 
   render() {
@@ -141,7 +123,17 @@ class App extends React.Component {
           <HoursCounter playlists = {playlistToRender}/>
           <Filter onTextChanged = {text => this.setState({filterString: text})}/>
           {playlistToRender.map(playlist => <Playlist playlist={playlist}/>)}
-        </div> : <h1>Loding...</h1>
+        </div> :
+        < div > < button onClick = {() => window.location = 'http://localhost:8888/login'}
+        style = {
+          {
+            margin: "auto",
+            width: "50%",
+            padding: "10px",
+            fontSize: "20px"
+          }
+        }>Sign in with Spotify</button>
+        </div>
         }
       </div>
     )
