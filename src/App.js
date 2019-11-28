@@ -3,6 +3,7 @@ import './App.css'
 import querystring from 'query-string';
 
 //fake data that will replaced by server data
+// eslint-disable-next-line
 let fakeData = {
   user: {
     name: 'Godspeed',
@@ -95,22 +96,42 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let parsed = querystring.parse(window.location.search);
-    let accessToken = parsed.access_Token
+    let accessToken = querystring.parse(window.location.search).access_token
 
-   fetch('https://api.spotify.com/v1/me', {
-     headers: {
-       'Authorization': 'Bearer ' + accessToken
-     }
-   }).then(response => response.json()).then(data => console.log(data))
+    //fetching user data
+    fetch('https://api.spotify.com/v1/me', {
+    headers: {
+      'Authorization': 'Bearer ' + accessToken
+     }}).then(response => response.json()).then(data => this.setState({serverData: {user: {name: data.display_name}}}))
+
+     /*
+     fetch('https://api.spotify.com/v1/me/playlists', {
+       headers: {
+         'Authorization': 'Bearer ' + accessToken
+       }
+     }).then(response => response.json()).then(data => this.setState({
+       serverData: {
+         user: {
+           name: data.display_name
+         }
+       }
+     }))
+     */
+     fetch('https://api.spotify.com/v1/users/ow3yzx3cgxptuwnbffyvcddrr/playlists', {
+       headers: {
+         'Authorization': 'Bearer ' + accessToken
+       }
+     }).then(response => response.json()).then(x => console.log(x.items))
   }
 
   render() {
-    let playlistToRender = this.state.serverData.user ?
-                           this.state.serverData.user.playlists.filter(playlist =>
-                           playlist.name.includes(
-                           this.setState.filterString)
-                           ) : []
+    let playlistToRender =
+      this.state.serverData.user &&
+      this.state.serverData.user.playlists
+      ?
+      this.state.serverData.user.playlists.filter(playlist =>
+        playlist.name.includes(this.setState.filterString))
+      : []
     return (
       <div className="App">
         {this.state.serverData.user ?
@@ -118,13 +139,15 @@ class App extends React.Component {
           <h1 style = {{fontSize: "55px"}}>
             {this.state.serverData.user.name}'s playlists
           </h1>
+
           {/* Calling funtions */}
           <PlaylistCounter playlists = {playlistToRender}/>
           <HoursCounter playlists = {playlistToRender}/>
           <Filter onTextChanged = {text => this.setState({filterString: text})}/>
           {playlistToRender.map(playlist => <Playlist playlist={playlist}/>)}
+
         </div> :
-        < div > < button onClick = {() => window.location = 'http://localhost:8888/login'}
+        <div><button onClick = {() => window.location = 'http://localhost:8888/login'}
         style = {
           {
             margin: "auto",
