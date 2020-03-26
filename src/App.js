@@ -71,7 +71,12 @@ class Playlist extends React.Component {
          fontSize: "20px"
         }}>
 
-        <img  alt=""/>
+        <img src={playlist.imageUrl} style={
+          {
+            marginTop: "100px",
+            width: '300px'
+          }
+        }/>
         <h3>{playlist.name}</h3>
         <ul style = {{listStyle: "none", padding: "0px", fontSize: ""}}>
           {playlist.songs.map(song =>
@@ -110,7 +115,6 @@ class App extends React.Component {
     }).then(response => response.json())
     .then(data => this.setState({
       playlists: data.items.map(item => {
-        console.log(data.items.images)
         return {
           name: item.name,
           imageUrl: item.images[0].url,
@@ -156,7 +160,7 @@ class App extends React.Component {
               border: "1.4px solid #000",
               overflow: "hidden"
             }
-          } > Sign in with Spotify </button>
+          }>Sign in with Spotify</button>
         }
       </div>
     )
