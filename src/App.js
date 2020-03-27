@@ -2,26 +2,6 @@ import React from "react";
 import "./App.css";
 import queryString from "query-string";
 
-//#region Fake Data
-/*
-let fakeData = {
-  user: {
-    name: "Godspeed",
-    playlists: [
-      {
-        name: "CHH 🔥",
-        songs: [
-          { name: "Watch this", duration: 1345 },
-          { name: "Superstar (Feat. Landstrip Chip)", duration: 1236 },
-          { name: "Angels", duration: 70000 },
-        ],
-      },
-    ],
-  },
-};
-*/
-//#endregion
-
 //Playlist aggregate
 class PlaylistCounter extends React.Component {
   render() {

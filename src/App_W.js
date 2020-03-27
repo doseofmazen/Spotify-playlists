@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import queryString from "query-string";
 
+//#region Fake Data
+/*
 let fakeData = {
   user: {
     name: "Godspeed",
@@ -17,6 +19,8 @@ let fakeData = {
     ],
   },
 };
+*/
+//#endregion
 
 //Playlist aggregate
 class PlaylistCounter extends React.Component {
@@ -50,12 +54,20 @@ class HoursCounter extends React.Component {
 class Filter extends React.Component {
   render() {
     return (
-      <div style={{ width: "30%" }}>
+      <div style={{}}>
         <img alt="" />
         <input
           type="text"
           placeholder="typing..."
           onKeyUp={(event) => this.props.onTextChange(event.target.value)}
+          style={{
+            width: "20%",
+            padding: "16px",
+            border: "0px",
+            borderRadius: "50px",
+            color: "#000",
+            backgroundColor: "#fff",
+          }}
         />
       </div>
     );
@@ -69,7 +81,7 @@ class Playlist extends React.Component {
     return (
       <div
         style={{
-          width: "25%",
+          width: "30%",
           display: "inline-block",
           fontSize: "20px",
         }}
