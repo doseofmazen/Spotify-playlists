@@ -188,7 +188,7 @@ class App extends React.Component {
             onClick={() => {
               window.location = window.location.href.includes("localhost")
                 ? "http://localhost:8888/login"
-                : "https://spotify-playlists-mazen.herokuapp.com";
+                : "https://spotify-playlists-mm-backend.herokuapp.com/";
             }}
             style={{
               margin: "0 auto",
