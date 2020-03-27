@@ -75,6 +75,7 @@ class Playlist extends React.Component {
         }}
       >
         <img
+          alt="Cover"
           src={playlist.imageUrl}
           style={{
             marginTop: "100px",
