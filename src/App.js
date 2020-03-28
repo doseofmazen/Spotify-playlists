@@ -1,6 +1,31 @@
 import React from "react";
 import "./App.css";
 import queryString from "query-string";
+import styled from "styled-components";
+
+let Button = styled.button`
+  padding: 1em;
+  outline: none;
+  text-align: center;
+  width: 20%;
+  border-radius: 40px;
+  background: #fff;
+  border: 2px solid #1dbb54;
+  color: #1dbb54;
+  letter-spacing: 2px;
+  text-shadow: 0;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  &:hover {
+    color: #fff;
+    background: #1dbb54;
+  }
+  &:active {
+    letter-spacing: 3px;
+  }
+`;
 
 //Playlist aggregate
 class PlaylistCounter extends React.Component {
@@ -184,25 +209,23 @@ class App extends React.Component {
             ))}
           </div>
         ) : (
-          <button
-            onClick={() => {
-              window.location = window.location.href.includes("localhost")
-                ? "http://localhost:8888/login"
-                : "https://spotify-playlists-mm-backend.herokuapp.com/";
-            }}
+          <div
             style={{
-              margin: "0 auto",
-              width: "50%",
-              padding: "25px",
-              fontSize: "20px",
-              fontFamily: "Source Sans Pro",
-              borderRadius: "100px",
-              border: "1.4px solid #000",
-              overflow: "hidden",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            Sign in with Spotify
-          </button>
+            <Button
+              onClick={() => {
+                window.location = window.location.href.includes("localhost")
+                  ? "http://localhost:8888/login"
+                  : "https://spotify-playlists-mm-backend.herokuapp.com/";
+              }}
+            >
+              Sign in with Spotify
+            </Button>
+          </div>
         )}
       </div>
     );
