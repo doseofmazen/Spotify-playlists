@@ -220,7 +220,7 @@ class App extends React.Component {
               onClick={() => {
                 window.location = window.location.href.includes("localhost")
                   ? "http://localhost:8888/login"
-                  : "https://spotify-playlists-mm-backend.herokuapp.com/";
+                  : "https://spotify-playlists-backend-ser.herokuapp.com/";
               }}
             >
               Sign in with Spotify
