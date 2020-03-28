@@ -3,7 +3,7 @@ import "./App.css";
 import queryString from "query-string";
 import styled from "styled-components";
 
-let Button = styled.button`
+let Signin = styled.button`
   padding: 1em;
   outline: none;
   text-align: center;
@@ -216,7 +216,7 @@ class App extends React.Component {
               alignItems: "center",
             }}
           >
-            <Button
+            <Signin
               onClick={() => {
                 window.location = window.location.href.includes("localhost")
                   ? "http://localhost:8888/login"
@@ -224,7 +224,7 @@ class App extends React.Component {
               }}
             >
               Sign in with Spotify
-            </Button>
+            </Signin>
           </div>
         )}
       </div>
