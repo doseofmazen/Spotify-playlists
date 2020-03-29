@@ -64,14 +64,14 @@ class Filter extends React.Component {
         <input
           type="text"
           placeholder="typing..."
-          onKeyUp={(event) => this.props.onTextChange(event.target.value)}
+          onKeyUp={event => this.props.onTextChange(event.target.value)}
           style={{
             width: "20%",
             padding: "16px",
             border: "0px",
             borderRadius: "50px",
             color: "#000",
-            backgroundColor: "#fff",
+            backgroundColor: "#fff"
           }}
         />
       </div>
@@ -88,7 +88,7 @@ class Playlist extends React.Component {
         style={{
           width: "30%",
           display: "inline-block",
-          fontSize: "20px",
+          fontSize: "20px"
         }}
       >
         <img
@@ -96,12 +96,12 @@ class Playlist extends React.Component {
           src={playlist.imageUrl}
           style={{
             marginTop: "100px",
-            width: "300px",
+            width: "300px"
           }}
         />
         <h3>{playlist.name}</h3>
         <ul style={{ listStyle: "none", padding: "0px" }}>
-          {playlist.songs.map((song) => (
+          {playlist.songs.map(song => (
             <li>{song.name}</li>
           ))}
         </ul>
@@ -116,73 +116,73 @@ class App extends React.Component {
     super(props);
     this.state = {
       serverData: {},
-      filterString: "",
+      filterString: ""
     };
   }
   componentDidMount() {
     let accessToken = queryString.parse(window.location.search).access_token;
     if (!accessToken) return;
     fetch("https://api.spotify.com/v1/me", {
-      headers: { Authorization: "Bearer " + accessToken },
+      headers: { Authorization: "Bearer " + accessToken }
     })
-      .then((response) => response.json())
-      .then((data) =>
+      .then(response => response.json())
+      .then(data =>
         this.setState({
           user: {
-            name: data.display_name,
-          },
+            name: data.display_name
+          }
         })
       );
 
     fetch("https://api.spotify.com/v1/me/playlists", {
-      headers: { Authorization: "Bearer " + accessToken },
+      headers: { Authorization: "Bearer " + accessToken }
     })
-      .then((response) => response.json())
-      .then((playlistData) => {
+      .then(response => response.json())
+      .then(playlistData => {
         let playlists = playlistData.items;
-        let trackDataPromises = playlists.map((playlist) => {
+        let trackDataPromises = playlists.map(playlist => {
           let responsePromise = fetch(playlist.tracks.href, {
-            headers: { Authorization: "Bearer " + accessToken },
+            headers: { Authorization: "Bearer " + accessToken }
           });
-          let trackDataPromise = responsePromise.then((response) =>
+          let trackDataPromise = responsePromise.then(response =>
             response.json()
           );
           return trackDataPromise;
         });
         let allTracksDataPromises = Promise.all(trackDataPromises);
-        let playlistsPromise = allTracksDataPromises.then((trackDatas) => {
+        let playlistsPromise = allTracksDataPromises.then(trackDatas => {
           trackDatas.forEach((trackData, i) => {
             playlists[i].trackDatas = trackData.items
-              .map((item) => item.track)
-              .map((trackData) => ({
+              .map(item => item.track)
+              .map(trackData => ({
                 name: trackData.name,
-                duration: trackData.duration_ms / 1000,
+                duration: trackData.duration_ms / 1000
               }));
           });
           return playlists;
         });
         return playlistsPromise;
       })
-      .then((playlists) =>
+      .then(playlists =>
         this.setState({
-          playlists: playlists.map((item) => {
+          playlists: playlists.map(item => {
             return {
               name: item.name,
               imageUrl: item.images[0].url,
-              songs: item.trackDatas.slice(0, 3),
+              songs: item.trackDatas.slice(0, 3)
             };
-          }),
+          })
         })
       );
   }
   render() {
     let playlistToRender =
       this.state.user && this.state.playlists
-        ? this.state.playlists.filter((playlist) => {
+        ? this.state.playlists.filter(playlist => {
             let matchesPlaylist = playlist.name
               .toLowerCase()
               .includes(this.state.filterString.toLowerCase());
-            let matchesSong = playlist.songs.find((song) =>
+            let matchesSong = playlist.songs.find(song =>
               song.name
                 .toLowerCase()
                 .includes(this.state.filterString.toLowerCase())
@@ -200,11 +200,11 @@ class App extends React.Component {
             <PlaylistCounter playlists={playlistToRender} />
             <HoursCounter playlists={playlistToRender} />
             <Filter
-              onTextChange={(text) => {
+              onTextChange={text => {
                 this.setState({ filterString: text });
               }}
             />
-            {playlistToRender.map((playlist) => (
+            {playlistToRender.map(playlist => (
               <Playlist playlist={playlist} />
             ))}
           </div>
@@ -213,7 +213,7 @@ class App extends React.Component {
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <Signin
