@@ -71,7 +71,7 @@ class Filter extends React.Component {
             border: "0px",
             borderRadius: "50px",
             color: "#000",
-            backgroundColor: "#fff"
+            backgroundColor: "#09d3ac"
           }}
         />
       </div>
