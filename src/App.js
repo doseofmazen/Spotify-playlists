@@ -4,17 +4,18 @@ import queryString from "query-string";
 import styled from "styled-components";
 
 const Signin = styled.button`
-  padding: 1em;
+  position: absolute;
+  top: 200px;
+  padding: 1.2em;
   outline: none;
   text-align: center;
   width: 20%;
   border-radius: 40px;
   background: #fff;
-  border: 2px solid #1dbb54;
+  border: 2px solid #e1f0ea;
   color: #1dbb54;
   letter-spacing: 2px;
-  text-shadow: 0;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.25s ease;
@@ -27,7 +28,7 @@ const Signin = styled.button`
   }
 `;
 
-//Playlist aggregate
+// Playlist aggregate
 class PlaylistCounter extends React.Component {
   render() {
     return (
@@ -59,7 +60,7 @@ class HoursCounter extends React.Component {
 class Filter extends React.Component {
   render() {
     return (
-      <div style={{}}>
+      <div>
         <img alt="" />
         <input
           type="text"
