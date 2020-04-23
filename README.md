@@ -1,4 +1,8 @@
-## To install run
+## Overview
+
+This app uses React to display a Spotify's user playlist.
+
+## Install app dependencies
 
 ### `npm install`
 
