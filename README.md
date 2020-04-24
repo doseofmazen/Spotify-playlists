@@ -1,16 +1,28 @@
-## Overview
+# Spotify-playlists
 
-This app uses React to display a Spotify's user playlist.
+This app uses React to display a Spotify's user playlist. This app is dependent on [Spotify-playlists-backend](https://shrtm.nu/ILJC).
 
-## Install app dependencies
+## Getting Started
 
-### `npm install`
+To run this application locally have sure that you had the [NodeJs](https://nodejs.org) installed on your machine first (also as [Git](https://git-scm.com/downloads) optionaly to help clone this repo), then follow the workflow to the initial setup:
 
-## Available Scripts
+1. Fork & clone this repository;
 
-In the project directory, you can run:
+   ```terminal
+       git clone git@github.com/<my-username>/Spotify-playlists my-api
+   ```
 
-### `npm start`
+2. Move inside to your cloned repo and then install the dependencies:
+
+   ```terminal
+       cd my-api && npm install
+   ```
+
+3. Start your application:
+
+   ```terminal
+       npm start
+   ```
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -18,15 +30,15 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `npm run build`
+## Deploying to production
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This is indended to be deployed on Heroku. After installing the heroku CLI tools you can run the below commands.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```terminal
+heroku create my-frontend --buildpack mars/create-react-app
+git push heroku master
+heroku open
+```
 
 ## Learn More About React ⚛
 
