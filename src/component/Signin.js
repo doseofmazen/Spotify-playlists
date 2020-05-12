@@ -9,7 +9,7 @@ const Signinbtn = styled.button`
   padding: 1.2em;
   outline: none;
   text-align: center;
-  width: 20%;
+  width: calc(300px + 2vmin);
   border-radius: 40px;
   background: #fff;
   border: 2px solid #e1f0ea;
@@ -17,8 +17,8 @@ const Signinbtn = styled.button`
   letter-spacing: 2px;
   font-size: 13px;
   font-weight: bold;
-  cursor: pointer;
   transition: all 0.25s ease;
+  cursor: pointer;
 
   &:hover {
     color: #fff;
