@@ -1,115 +1,12 @@
 import React from "react";
 import "./App.css";
 import queryString from "query-string";
-import styled from "styled-components";
-
-const Signin = styled.button`
-  position: absolute;
-  top: 200px;
-  padding: 1.2em;
-  outline: none;
-  text-align: center;
-  width: 20%;
-  border-radius: 40px;
-  background: #fff;
-  border: 2px solid #e1f0ea;
-  color: #1dbb54;
-  letter-spacing: 2px;
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  &:hover {
-    color: #fff;
-    background: #1dbb54;
-  }
-  &:active {
-    letter-spacing: 3px;
-  }
-`;
-
-// Playlist aggregate
-class PlaylistCounter extends React.Component {
-  render() {
-    return (
-      <div style={{ width: "40%", display: "inline-block" }}>
-        <h2>{this.props.playlists.length} playlists</h2>
-      </div>
-    );
-  }
-}
-
-//how long the  is
-class HoursCounter extends React.Component {
-  render() {
-    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
-      return songs.concat(eachPlaylist.songs);
-    }, []);
-    let totalDuration = allSongs.reduce((sum, eachSong) => {
-      return sum + eachSong.duration;
-    }, 0);
-    return (
-      <div style={{ width: "40%", display: "inline-block" }}>
-        <h2>{Math.round(totalDuration / 60)} hours</h2>
-      </div>
-    );
-  }
-}
-
-//search box to be used for filtering songs
-class Filter extends React.Component {
-  render() {
-    return (
-      <div>
-        <img alt="" />
-        <input
-          type="text"
-          placeholder="typing..."
-          onKeyUp={event => this.props.onTextChange(event.target.value)}
-          style={{
-            width: "20%",
-            padding: "16px",
-            border: "0px",
-            borderRadius: "50px",
-            color: "#000",
-            backgroundColor: "#09d3ac"
-          }}
-        />
-      </div>
-    );
-  }
-}
-
-//the actual playlists
-class Playlist extends React.Component {
-  render() {
-    let playlist = this.props.playlist;
-    return (
-      <div
-        style={{
-          width: "30%",
-          display: "inline-block",
-          fontSize: "20px"
-        }}
-      >
-        <img
-          alt="Cover"
-          src={playlist.imageUrl}
-          style={{
-            marginTop: "100px",
-            width: "300px"
-          }}
-        />
-        <h3>{playlist.name}</h3>
-        <ul style={{ listStyle: "none", padding: "0px" }}>
-          {playlist.songs.map(song => (
-            <li>{song.name}</li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
+import PlaylistCounter from "./component/PlaylistCounter";
+import HoursCounter from "./component/HoursCounter";
+import Filter from "./component/Filter";
+import Playlist from "./component/Playlist";
+import Signin from "./component/Signin";
+import Footer from "./component/Footer";
 
 //main function so inti the app
 class App extends React.Component {
@@ -133,8 +30,8 @@ class App extends React.Component {
             name: data.display_name
           }
         })
-      );
-
+      )
+      .catch(err => console.error(err + " data like name"));
     fetch("https://api.spotify.com/v1/me/playlists", {
       headers: { Authorization: "Bearer " + accessToken }
     })
@@ -174,7 +71,8 @@ class App extends React.Component {
             };
           })
         })
-      );
+      )
+      .catch(err => console.error(err + " playlistData"));
   }
   render() {
     let playlistToRender =
@@ -195,7 +93,7 @@ class App extends React.Component {
       <div className="App">
         {this.state.user ? (
           <div>
-            <h1 style={{ fontSize: "55px" }}>
+            <h1 style={{ fontSize: "calc(35px + 2vmin)" }}>
               {this.state.user.name}'s playlists
             </h1>
             <PlaylistCounter playlists={playlistToRender} />
@@ -210,22 +108,8 @@ class App extends React.Component {
             ))}
           </div>
         ) : (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <Signin
-              onClick={() => {
-                window.location = window.location.href.includes("localhost")
-                  ? "http://localhost:8888/login"
-                  : "https://spotify-playlists-mm-backend.herokuapp.com/login";
-              }}
-            >
-              Sign in with Spotify
-            </Signin>
+          <div>
+            <Signin></Signin>
           </div>
         )}
       </div>

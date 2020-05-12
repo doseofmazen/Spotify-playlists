@@ -31,3 +31,13 @@ button:focus {
   color: #fb9f89;
   background: rgba(0, 0, 0, 0.415);
 }
+
+@media only screen and (max-width: 600px) {
+  .playlist {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+  }
+}
