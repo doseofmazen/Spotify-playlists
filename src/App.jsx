@@ -66,6 +66,7 @@ class App extends React.Component {
           playlists: playlists.map(item => {
             return {
               name: item.name,
+              id: item.id,
               imageUrl: item.images[0].url,
               songs: item.trackDatas.slice(0, 3)
             };
@@ -104,8 +105,9 @@ class App extends React.Component {
               }}
             />
             {playlistToRender.map(playlist => (
-              <Playlist playlist={playlist} />
+              <Playlist playlist={playlist} key={playlist.id} />
             ))}
+            <button id="themeButton"></button>
           </div>
         ) : (
           <div>

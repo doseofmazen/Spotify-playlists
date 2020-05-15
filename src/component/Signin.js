@@ -11,9 +11,9 @@ const Signinbtn = styled.button`
   text-align: center;
   width: calc(300px + 2vmin);
   border-radius: 40px;
-  background: #fff;
+  background: #1dbb54;
   border: 2px solid #e1f0ea;
-  color: #1dbb54;
+  color: #fff;
   letter-spacing: 2px;
   font-size: 13px;
   font-weight: bold;
@@ -21,11 +21,12 @@ const Signinbtn = styled.button`
   cursor: pointer;
 
   &:hover {
-    color: #fff;
-    background: #1dbb54;
+    color: #000;
+    background: #fff;
   }
   &:active {
     letter-spacing: 3px;
+    font-size: 14px;
   }
 `;
 //#endregion
