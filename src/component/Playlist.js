@@ -18,11 +18,20 @@ class Playlist extends React.Component {
           alt="Cover"
           src={playlist.imageUrl}
           style={{
-            marginTop: "100px",
+            marginTop: "50px",
             width: "300px"
           }}
         />
-        <h3>{playlist.name}</h3>
+        <h3>
+          <a
+            className="App-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={playlist.uri}
+          >
+            {playlist.name}
+          </a>
+        </h3>
         <ul style={{ listStyle: "none", padding: "0px" }}>
           {playlist.songs.map(song => (
             <li>{song.name}</li>

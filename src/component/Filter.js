@@ -15,6 +15,7 @@ function Filter(props) {
           border: "0px",
           borderRadius: "50px",
           color: "#000",
+          letterSpacing: "0.1rem",
           backgroundColor: "#1dbb54"
         }}
       />

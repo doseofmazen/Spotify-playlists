@@ -1,12 +1,13 @@
 import React from "react";
 import "./App.css";
 import queryString from "query-string";
+import Themetoggle from "./component/Themetoggle";
 import PlaylistCounter from "./component/PlaylistCounter";
 import HoursCounter from "./component/HoursCounter";
 import Filter from "./component/Filter";
 import Playlist from "./component/Playlist";
 import Signin from "./component/Signin";
-import Footer from "./component/Footer";
+// import Footer from "./component/Footer";
 
 //main function so inti the app
 class App extends React.Component {
@@ -68,7 +69,8 @@ class App extends React.Component {
               name: item.name,
               id: item.id,
               imageUrl: item.images[0].url,
-              songs: item.trackDatas.slice(0, 3)
+              songs: item.trackDatas.slice(0, 3),
+              uri: item.uri
             };
           })
         })
@@ -94,7 +96,8 @@ class App extends React.Component {
       <div className="App">
         {this.state.user ? (
           <div>
-            <h1 style={{ fontSize: "calc(35px + 2vmin)" }}>
+            <Themetoggle></Themetoggle>
+            <h1 style={{ fontSize: "calc(35px + 2vmin)", margin: "2.rem" }}>
               {this.state.user.name}'s playlists
             </h1>
             <PlaylistCounter playlists={playlistToRender} />
@@ -107,7 +110,6 @@ class App extends React.Component {
             {playlistToRender.map(playlist => (
               <Playlist playlist={playlist} key={playlist.id} />
             ))}
-            <button id="themeButton"></button>
           </div>
         ) : (
           <div>

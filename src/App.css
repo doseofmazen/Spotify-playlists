@@ -5,7 +5,9 @@
   --secondary-background-color: #fff;
   --highlight-color: #fb9f89;
   --link-color: #09d3ac;
+  --link-color: #1dbb54;
   --background-highlight-color: rgba(0, 0, 0, 0.176);
+  --transition-speed: 600ms;
 }
 
 ::selection {
@@ -13,7 +15,22 @@
   background: var(--background-highlight-color);
 }
 
-body {
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
+}
+
+.dark {
+  text-align: center;
+  background-color: var(--primary-background-color);
+  color: var(--primary-text-color);
+}
+
+.light {
+  text-align: center;
   background-color: var(--secondary-background-color);
   color: var(--secondary-text-color);
 }
@@ -33,6 +50,12 @@ body {
 
 .App-link {
   color: var(--link-color);
+  text-decoration: none;
+  transition: calc(var(--transition-speed) - 300ms);
+}
+
+.App-link:hover {
+  border-bottom: #fb9f89 2px solid;
 }
 
 input:focus,
