@@ -5,6 +5,7 @@ import ToggleTheme from "react-toggle-theme";
 function Themetoggle() {
   const [currentTheme, setCurrentTheme] = React.useState("light");
   React.useEffect(() => {
+    //available themes
     const themeMap = {
       dark: "dark",
       light: "light"
@@ -20,6 +21,7 @@ function Themetoggle() {
     const bodyClass = document.body.classList;
     bodyClass.add(theme);
 
+    //adding transition to theme change
     const trans = () => {
       document.documentElement.classList.add("transition");
       window.setTimeout(() => {
