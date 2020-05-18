@@ -19,7 +19,7 @@ html.transition,
 html.transition *,
 html.transition *:before,
 html.transition *:after {
-  transition: all 750ms !important;
+  transition: all var(--transition-speed) !important;
   transition-delay: 0 !important;
 }
 

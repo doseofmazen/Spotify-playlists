@@ -11,7 +11,7 @@ function Themetoggle() {
       light: "light"
     };
 
-    var tmp;
+    let tmp;
     const theme =
       localStorage.getItem("theme") ||
       ((tmp = Object.keys(themeMap)[0]),
@@ -26,7 +26,7 @@ function Themetoggle() {
       document.documentElement.classList.add("transition");
       window.setTimeout(() => {
         document.documentElement.classList.remove("transition");
-      }, 1000);
+      }, 600);
     };
 
     (function () {
@@ -55,7 +55,9 @@ function Themetoggle() {
       }}
     >
       <ToggleTheme selectedTheme={currentTheme} onChange={setCurrentTheme} />
-      <span style={{ margin: "auto", paddingLeft: "7px" }}>Theme</span>
+      <span style={{ margin: "auto", paddingLeft: "7px" }}>
+        {currentTheme === "light" ? "Dark Mode" : "Rise n shine"}
+      </span>
     </div>
   );
 }
