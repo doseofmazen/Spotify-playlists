@@ -13,9 +13,9 @@ function Themetoggle() {
 
     let tmp;
     const theme =
-      localStorage.getItem("theme") ||
+      localStorage.getItem("currentTheme") ||
       ((tmp = Object.keys(themeMap)[0]),
-      localStorage.setItem("theme", tmp),
+      localStorage.setItem("currentTheme", tmp),
       tmp);
 
     const bodyClass = document.body.classList;
@@ -30,11 +30,11 @@ function Themetoggle() {
     };
 
     (function () {
-      const current = localStorage.getItem("theme");
+      const current = localStorage.getItem("currentTheme");
       const next = themeMap[currentTheme];
       bodyClass.replace(current, next);
       trans();
-      localStorage.setItem("theme", next);
+      localStorage.setItem("currentTheme", next);
     })();
   }, [currentTheme]);
   return (

@@ -7,7 +7,7 @@ import HoursCounter from "./component/HoursCounter";
 import Filter from "./component/Filter";
 import Playlist from "./component/Playlist";
 import Signin from "./component/Signin";
-// import Footer from "./component/Footer";
+// import Footer from './component/Footer';
 
 //main function so inti the app
 class App extends React.Component {
@@ -21,18 +21,24 @@ class App extends React.Component {
   componentDidMount() {
     let accessToken = queryString.parse(window.location.search).access_token;
     if (!accessToken) return;
-    fetch("https://api.spotify.com/v1/me", {
-      headers: { Authorization: "Bearer " + accessToken }
-    })
-      .then(response => response.json())
-      .then(data =>
-        this.setState({
-          user: {
-            name: data.display_name
-          }
-        })
-      )
-      .catch(err => console.error(err + " data like name"));
+
+    const data = async () => {
+      const response = await fetch("https://api.spotify.com/v1/me", {
+        headers: {
+          Authorization: "Bearer " + accessToken
+        }
+      });
+      const data = await response.json();
+      this.setState({
+        user: {
+          name: data.display_name,
+          href: data.external_urls.spotify
+        }
+      });
+    };
+
+    data().catch(error => console.log("Data async function"));
+
     fetch("https://api.spotify.com/v1/me/playlists", {
       headers: { Authorization: "Bearer " + accessToken }
     })
@@ -98,7 +104,16 @@ class App extends React.Component {
           <div>
             <Themetoggle></Themetoggle>
             <h1 style={{ fontSize: "calc(35px + 2vmin)", margin: "2.rem" }}>
-              {this.state.user.name}'s playlists
+              <a
+                className="App-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={this.state.user.href}
+                key={console.log(this.state.user.href)}
+              >
+                {this.state.user.name}
+              </a>
+              's playlists
             </h1>
             <PlaylistCounter playlists={playlistToRender} />
             <HoursCounter playlists={playlistToRender} />

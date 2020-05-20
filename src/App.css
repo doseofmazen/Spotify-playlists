@@ -51,7 +51,7 @@ html.transition *:after {
 .App-link {
   color: var(--link-color);
   text-decoration: none;
-  transition: calc(var(--transition-speed) - 300ms);
+  --webkit-transition: all calc(var(--transition-speed) - 300ms) linear;
 }
 
 .App-link:hover {
