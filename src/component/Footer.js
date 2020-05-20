@@ -2,14 +2,14 @@ import React from "react";
 import "../App.css";
 import styled from "styled-components";
 
-//#region botton style
+//#region bottom style
 const Footer = styled.footer``;
 //#endregion
 
 function Signin() {
   return (
     <div>
-      <footer>Hello</footer>
+      <Footer>Hello</Footer>
     </div>
   );
 }

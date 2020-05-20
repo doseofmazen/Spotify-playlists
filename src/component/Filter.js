@@ -8,7 +8,7 @@ function Filter(props) {
       <input
         type="text"
         placeholder="Search"
-        onKeyUp={e => props.onTextChange(e.target.value)}
+        onKeyUp={(e) => props.onTextChange(e.target.value)}
         style={{
           width: "calc(200px + 10vmin)",
           padding: "16px",
@@ -16,7 +16,7 @@ function Filter(props) {
           borderRadius: "50px",
           color: "#000",
           letterSpacing: "0.1rem",
-          backgroundColor: "#1dbb54"
+          backgroundColor: "#1dbb54",
         }}
       />
     </div>

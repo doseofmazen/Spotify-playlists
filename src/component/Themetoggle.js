@@ -8,7 +8,7 @@ function Themetoggle() {
     //available themes
     const themeMap = {
       dark: "dark",
-      light: "light"
+      light: "light",
     };
 
     let tmp;
@@ -50,7 +50,7 @@ function Themetoggle() {
         justifyContent: "space-between",
         zindex: "999",
         transition: "top .3s ease",
-        position: "absolute"
+        position: "absolute",
         // transform: "rotate(90deg)"
       }}
     >

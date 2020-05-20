@@ -10,7 +10,7 @@ function Playlist(props) {
         width: "30%",
         display: "inline-block",
         flexDirection: "column",
-        fontSize: "20px"
+        fontSize: "20px",
       }}
     >
       <img
@@ -18,7 +18,7 @@ function Playlist(props) {
         src={playlist.imageUrl}
         style={{
           marginTop: "50px",
-          width: "300px"
+          width: "300px",
         }}
       />
       <h3>
@@ -32,7 +32,7 @@ function Playlist(props) {
         </a>
       </h3>
       <ul style={{ listStyle: "none", padding: "0px" }}>
-        {playlist.songs.map(song => (
+        {playlist.songs.map((song) => (
           <li>{song.name}</li>
         ))}
       </ul>
