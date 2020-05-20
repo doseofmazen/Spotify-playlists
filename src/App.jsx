@@ -37,7 +37,7 @@ class App extends React.Component {
       });
     };
 
-    data().catch((error) => console.log("Data async function"));
+    data().catch((error) => console.log(error + "Data async function"));
 
     fetch("https://api.spotify.com/v1/me/playlists", {
       headers: { Authorization: "Bearer " + accessToken },
