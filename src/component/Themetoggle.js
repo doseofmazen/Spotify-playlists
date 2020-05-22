@@ -3,40 +3,41 @@ import "../App.css";
 import ToggleTheme from "react-toggle-theme";
 
 function Themetoggle() {
-  const [currentTheme, setCurrentTheme] = React.useState("light");
+  const [currentTheme, setCurrentTheme] = React.useState(
+    `${localStorage.currentTheme}`
+  );
+
+  //available themes
+  const themeMap = {
+    dark: "dark",
+    light: "light",
+  };
+
+  //setting the theme on loan
+  const tmp = Object.keys(themeMap)[0];
+  const theme =
+    localStorage.getItem("currentTheme") ||
+    (tmp, localStorage.setItem("currentTheme", tmp), tmp);
+
+  const bodyClass = document.body.classList;
+  bodyClass.add(theme);
+
+  //adding transition to theme change
+  const trans = () => {
+    document.documentElement.classList.add("transition");
+    window.setTimeout(() => {
+      document.documentElement.classList.remove("transition");
+    }, 600);
+  };
+
+  //On toggle event
   React.useEffect(() => {
-    //available themes
-    const themeMap = {
-      dark: "dark",
-      light: "light",
-    };
-
-    let tmp;
-    const theme =
-      localStorage.getItem("currentTheme") ||
-      ((tmp = Object.keys(themeMap)[0]),
-      localStorage.setItem("currentTheme", tmp),
-      tmp);
-
-    const bodyClass = document.body.classList;
-    bodyClass.add(theme);
-
-    //adding transition to theme change
-    const trans = () => {
-      document.documentElement.classList.add("transition");
-      window.setTimeout(() => {
-        document.documentElement.classList.remove("transition");
-      }, 600);
-    };
-
-    (function () {
-      const current = localStorage.getItem("currentTheme");
-      const next = themeMap[currentTheme];
-      bodyClass.replace(current, next);
-      trans();
-      localStorage.setItem("currentTheme", next);
-    })();
-  }, [currentTheme]);
+    const current = localStorage.getItem("currentTheme");
+    const next = themeMap[currentTheme];
+    bodyClass.replace(current, next);
+    trans();
+    localStorage.setItem("currentTheme", next);
+  }, [bodyClass, currentTheme, themeMap]);
   return (
     <div
       className={"app-container"}
@@ -51,7 +52,6 @@ function Themetoggle() {
         zindex: "999",
         transition: "top .3s ease",
         position: "absolute",
-        // transform: "rotate(90deg)"
       }}
     >
       <ToggleTheme selectedTheme={currentTheme} onChange={setCurrentTheme} />

@@ -21,7 +21,6 @@ class App extends React.Component {
   componentDidMount() {
     let accessToken = queryString.parse(window.location.search).access_token;
     if (!accessToken) return;
-
     const data = async () => {
       const response = await fetch("https://api.spotify.com/v1/me", {
         headers: {
@@ -33,12 +32,10 @@ class App extends React.Component {
         user: {
           name: data.display_name,
           href: data.external_urls.spotify,
+          profile: data.images[0].url,
         },
       });
     };
-
-    data().catch((error) => console.log(error + "Data async function"));
-
     fetch("https://api.spotify.com/v1/me/playlists", {
       headers: { Authorization: "Bearer " + accessToken },
     })
@@ -82,6 +79,8 @@ class App extends React.Component {
         })
       )
       .catch((err) => console.error(err + " playlistData"));
+
+    data().catch((error) => console.log(error + "Data async function"));
   }
   render() {
     let playlistToRender =
@@ -103,13 +102,23 @@ class App extends React.Component {
         {this.state.user ? (
           <div>
             <Themetoggle></Themetoggle>
-            <h1 style={{ fontSize: "calc(35px + 2vmin)", margin: "2.rem" }}>
+            <h1
+              style={{
+                fontSize: "calc(35px + 2vmin)",
+                margin: "2.rem",
+              }}
+            >
               <a
+                style={{
+                  backgroundImage: `url(${this.state.user.profile})`,
+                  backgroundSize: "cover",
+                  webkitBackgroundClip: "text",
+                  color: "transparent",
+                }}
                 className="App-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href={this.state.user.href}
-                key={console.log(this.state.user.href)}
               >
                 {this.state.user.name}
               </a>
