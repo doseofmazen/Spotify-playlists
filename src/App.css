@@ -4,7 +4,6 @@
   --primary-background-color: #1e1e24;
   --secondary-background-color: #fff;
   --highlight-color: #fb9f89;
-  --link-color: #09d3ac;
   --link-color: #1dbb54;
   --background-highlight-color: rgba(0, 0, 0, 0.176);
   --transition-speed: 600ms;
@@ -66,6 +65,10 @@ button:focus {
 }
 
 @media only screen and (max-width: 600px) {
+  body {
+    font-size: calc(5px + 2vmin);
+  }
+
   .playlist {
     display: flex !important;
     flex-direction: column !important;

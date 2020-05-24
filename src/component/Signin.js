@@ -2,7 +2,7 @@ import React from "react";
 import "../App.css";
 import styled from "styled-components";
 
-//#region botton style
+//#region bolton style
 const Signinbtn = styled.button`
   position: absolute;
   top: 200px;
