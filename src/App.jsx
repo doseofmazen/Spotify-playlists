@@ -7,9 +7,7 @@ import HoursCounter from "./component/HoursCounter";
 import Filter from "./component/Filter";
 import Playlist from "./component/Playlist";
 import Signin from "./component/Signin";
-// import Footer from './component/Footer';
 
-//main function so inti the app
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +19,7 @@ class App extends React.Component {
   componentDidMount() {
     let accessToken = queryString.parse(window.location.search).access_token;
     if (!accessToken) return;
-    const data = async () => {
+    const user = async () => {
       const response = await fetch("https://api.spotify.com/v1/me", {
         headers: {
           Authorization: "Bearer " + accessToken,
@@ -36,36 +34,32 @@ class App extends React.Component {
         },
       });
     };
-    fetch("https://api.spotify.com/v1/me/playlists", {
-      headers: { Authorization: "Bearer " + accessToken },
-    })
-      .then((response) => response.json())
-      .then((playlistData) => {
-        let playlists = playlistData.items;
-        let trackDataPromises = playlists.map((playlist) => {
-          let responsePromise = fetch(playlist.tracks.href, {
+    const userPlaylist = async () => {
+      const response = await fetch("https://api.spotify.com/v1/me/playlists", {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      });
+      const playlistData = await response.json();
+      const playlists = playlistData.items;
+      const trackDataPromises = playlists.map((item) => {
+        const trackhref = async () => {
+          const tracksResponse = await fetch(item.tracks.href, {
             headers: { Authorization: "Bearer " + accessToken },
           });
-          let trackDataPromise = responsePromise.then((response) =>
-            response.json()
-          );
-          return trackDataPromise;
+          return await tracksResponse.json();
+        };
+        return trackhref();
+      });
+      return Promise.all(trackDataPromises).then((trackDatas) => {
+        trackDatas.forEach((trackData, i) => {
+          playlists[i].trackDatas = trackData.items
+            .map((item) => item.track)
+            .map((trackData) => ({
+              name: trackData.name,
+              duration: trackData.duration_ms / 1000,
+            }));
         });
-        let allTracksDataPromises = Promise.all(trackDataPromises);
-        let playlistsPromise = allTracksDataPromises.then((trackDatas) => {
-          trackDatas.forEach((trackData, i) => {
-            playlists[i].trackDatas = trackData.items
-              .map((item) => item.track)
-              .map((trackData) => ({
-                name: trackData.name,
-                duration: trackData.duration_ms / 1000,
-              }));
-          });
-          return playlists;
-        });
-        return playlistsPromise;
-      })
-      .then((playlists) =>
         this.setState({
           playlists: playlists.map((item) => {
             return {
@@ -76,11 +70,17 @@ class App extends React.Component {
               uri: item.uri,
             };
           }),
-        })
-      )
-      .catch((err) => console.error(err + " playlistData"));
+        });
+      });
+    };
 
-    data().catch((error) => console.log(error + "Data async function"));
+    user().catch(
+      (err) => console.error(err) + console.log(err + "User async function.")
+    );
+    userPlaylist().catch(
+      (err) =>
+        console.error(err) + console.log(err + "playlist async function.")
+    );
   }
   render() {
     let playlistToRender =
@@ -101,7 +101,7 @@ class App extends React.Component {
       <div className="App">
         {this.state.user ? (
           <div>
-            <Themetoggle></Themetoggle>
+            <Themetoggle />
             <h1
               style={{
                 fontSize: "calc(35px + 2vmin)",
@@ -112,7 +112,7 @@ class App extends React.Component {
                 style={{
                   backgroundImage: `url(${this.state.user.profile})`,
                   backgroundSize: "cover",
-                  webkitBackgroundClip: "text",
+                  WebkitBackgroundClip: "text",
                   color: "transparent",
                 }}
                 className="App-link"
@@ -137,7 +137,7 @@ class App extends React.Component {
           </div>
         ) : (
           <div>
-            <Signin></Signin>
+            <Signin />
           </div>
         )}
       </div>
