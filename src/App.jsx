@@ -19,6 +19,7 @@ class App extends React.Component {
   componentDidMount() {
     let accessToken = queryString.parse(window.location.search).access_token;
     if (!accessToken) return;
+
     const user = async () => {
       const response = await fetch("https://api.spotify.com/v1/me", {
         headers: {
@@ -34,6 +35,7 @@ class App extends React.Component {
         },
       });
     };
+
     const userPlaylist = async () => {
       const response = await fetch("https://api.spotify.com/v1/me/playlists", {
         headers: {
