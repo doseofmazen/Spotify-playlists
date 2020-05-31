@@ -6,7 +6,6 @@
 /.pnp
 .pnp.js
 .eslintrc
-demo.png
 
 # testing
 /coverage
