@@ -2,7 +2,7 @@
 
 ![](preview.png)
 
-This app uses React to display a Spotify's user playlist. This app is dependent on [Spotify-playlists-backend](https://shrtm.nu/ILJC).
+This app uses React to display a Spotify's user playlist. This app is dependent on [Spotify-playlists-backend](https://shrtm.nu/ILJC). Here's the [working build](https://spotify-playlists-mazen.herokuapp.com/).
 
 ## Getting Started
 
