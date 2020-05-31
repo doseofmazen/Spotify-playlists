@@ -1,6 +1,6 @@
 # Spotify-playlists
 
-[](demo.png)
+![](preview.png)
 
 This app uses React to display a Spotify's user playlist. This app is dependent on [Spotify-playlists-backend](https://shrtm.nu/ILJC).
 
