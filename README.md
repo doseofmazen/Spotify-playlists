@@ -1,10 +1,12 @@
 # Spotify-playlists
 
+[](demo.png)
+
 This app uses React to display a Spotify's user playlist. This app is dependent on [Spotify-playlists-backend](https://shrtm.nu/ILJC).
 
 ## Getting Started
 
-To run this application locally have sure that you had the [NodeJs](https://nodejs.org) installed on your machine first (also as [Git](https://git-scm.com/downloads) optionaly to help clone this repo), then follow the workflow to the initial setup:
+To run this application locally have sure that you have the [NodeJs](https://nodejs.org) installed on your machine first (also as [Git](https://git-scm.com/downloads) optionally to help clone this repo), then follow the workflow to the initial setup:
 
 1. Fork & clone this repository;
 
@@ -32,10 +34,10 @@ You will also see any lint errors in the console.
 
 ## Deploying to production
 
-This is indended to be deployed on Heroku. After installing the heroku CLI tools you can run the below commands.
+This is indented to be deployed on Heroku. After installing the heroku CLI tools you can run the below commands.
 
 ```terminal
-heroku create my-frontend --buildpack mars/create-react-app
+heroku create my-frontend
 git push heroku master
 heroku open
 ```

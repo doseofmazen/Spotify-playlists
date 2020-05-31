@@ -81,7 +81,7 @@ class App extends React.Component {
     );
     userPlaylist().catch(
       (err) =>
-        console.error(err) + console.log(err + "playlist async function.")
+        console.error(err) + console.log(err + "Playlist async function.")
     );
   }
   render() {
