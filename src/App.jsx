@@ -4,6 +4,7 @@ import queryString from "query-string";
 import Themetoggle from "./component/Themetoggle";
 import PlaylistCounter from "./component/PlaylistCounter";
 import HoursCounter from "./component/HoursCounter";
+import Followers from "./component/Followers";
 import Filter from "./component/Filter";
 import Playlist from "./component/Playlist";
 import Signin from "./component/Signin";
@@ -32,6 +33,7 @@ class App extends React.Component {
           name: data.display_name,
           href: data.external_urls.spotify,
           profile: data.images[0].url,
+          followers: data.followers.total,
         },
       });
     };
@@ -127,6 +129,7 @@ class App extends React.Component {
               's playlists
             </h1>
             <PlaylistCounter playlists={playlistToRender} />
+            <Followers user={this.state.user} />
             <HoursCounter playlists={playlistToRender} />
             <Filter
               onTextChange={(text) => {

@@ -22,20 +22,11 @@ function Themetoggle() {
   const bodyClass = document.body.classList;
   bodyClass.add(theme);
 
-  //adding transition to theme change
-  const trans = () => {
-    document.documentElement.classList.add("transition");
-    window.setTimeout(() => {
-      document.documentElement.classList.remove("transition");
-    }, 600);
-  };
-
   //On toggle event
   React.useEffect(() => {
     const current = localStorage.getItem("currentTheme");
     const next = themeMap[currentTheme];
     bodyClass.replace(current, next);
-    trans();
     localStorage.setItem("currentTheme", next);
   }, [bodyClass, currentTheme, themeMap]);
   return (

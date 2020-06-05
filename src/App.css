@@ -5,10 +5,8 @@
 :root {
   --primary-text-color: #e1f0ea;
   --primary-background-color: #090b10;
-
   --secondary-text-color: #090b10;
   --secondary-background-color: #e1f0ea;
-
   --highlight-color: #fb9f89;
   --link-color: #1dbb54;
   --background-highlight-color: rgba(0, 0, 0, 0.176);
@@ -20,16 +18,10 @@
   background: var(--background-highlight-color);
 }
 
-html.transition,
-html.transition *,
-html.transition *:before,
-html.transition *:after {
-  transition: all calc(var(--transition-speed) - 300ms) !important;
-  transition-delay: 0 !important;
-}
-
 body {
   text-align: center;
+  transition: background calc(var(--transition-speed) - 100ms) ease-in-out,
+    color calc(var(--transition-speed) + 400ms) ease-in-out !important;
 }
 
 .dark {
