@@ -40,6 +40,10 @@ function Signin() {
         alignItems: "center",
       }}
     >
+      <h1 style={{ display: "block" }}>Sign in with Spotify!</h1>
+      {/* <p style={{ display: "inline" }}>
+        Signing in allows the app to fetch data from the users account.
+      </p> */}
       <Signinbtn
         onClick={() => {
           window.location = window.location.href.includes("localhost")
@@ -47,7 +51,7 @@ function Signin() {
             : "https://spotify-playlists-mm-backend.herokuapp.com/login";
         }}
       >
-        Sign in with Spotify
+        Login with Spotify
       </Signinbtn>
     </div>
   );
